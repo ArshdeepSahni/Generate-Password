@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js?version=5< class="fa fa-500px" aria-hidden="true"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <!--NavBar begin-->
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="logo.png" width="5%" height="5%" class="d-inline-block align-top">
+                    Password Generator
+                </a>
+            </div>
+        </nav>
+        <!--Navbar End-->
+
+        <div style="text-align: center;">
+        <!---Website Heading begin-->
+        <h1>The Smart Password Generator<br>
+            <h6 style="text-align:center;font-weight:lighter">Generate your random password over here,<br>Don't Worry we
+                Will Keep it Safe!</h6>
+        </h1>
+        <!---Website Heading End-->
+
+        <button onclick="password_generator(8)" type="button" class="btn btn-outline-primary">Generate<br>
+            <div class="spin spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </button>
+        <br>
+        <h2></h2>
+    </div>
+
+
+
+
+    <style>
+        .spin {
+            visibility: hidden;
+        }
+
+        button:hover {
+            background: transparent !important;
+            color: rgb(30, 101, 255) !important;
+        }
+    </style>
+
+    <script>
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        async function password_generator(length) {
+            let check;
+            var result = '';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*_';
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,}/;
+            $("div.spin").css("visibility", "visible")
+            await sleep(1000);
+            $("h2").html("Wait...!\n");
+            await sleep(2000);
+            if (re.test(result)) {
+                $("h2").html(result);
+                $("div.spin").css("visibility", "hidden")
+            }
+            else {
+                $("h2").html("Wait...!\n");
+                $("div.spin").css("visibility", "visible")
+                $("button").click();
+                await sleep(3000);
+                $("div.spin").css("visibility", "hidden")
+            }
+            $("div.spin").css("visibility", "hidden");
+        }
+
+
+
+    </script>
+</body>
+
+</html>
